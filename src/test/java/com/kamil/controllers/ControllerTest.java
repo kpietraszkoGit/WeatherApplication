@@ -4,8 +4,6 @@ import com.kamil.models.WeatherManager;
 import com.kamil.models.WeatherUtility;
 import org.json.JSONException;
 import org.junit.jupiter.api.Test;
-
-
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -60,5 +58,4 @@ public class ControllerTest {
         assertNotNull(temperature, "Null");
         assertNotNull(description, "Null");
     }
-
 }

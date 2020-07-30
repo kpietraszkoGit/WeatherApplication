@@ -5,11 +5,9 @@ import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
-
 import java.io.*;
 import java.net.URL;
 import java.nio.charset.Charset;
-
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -106,5 +104,4 @@ public class WeatherManagerTest {
         assertThat(city, notNullValue());
         assertThat(icon, containsString("d"));
     }
-
 }

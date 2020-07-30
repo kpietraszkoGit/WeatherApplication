@@ -1,7 +1,6 @@
 package com.kamil.models;
 
 import org.junit.jupiter.api.Test;
-
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
@@ -14,7 +13,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
-
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
@@ -172,6 +170,4 @@ public class WeatherUtilityTest {
         assertThat(fore, is(not(empty())));
         assertThat(forecast, is(not(empty())));
     }
-
-
 }
