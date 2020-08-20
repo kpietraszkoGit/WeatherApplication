@@ -39,7 +39,7 @@ public class Controller implements Initializable {
             dayDayDayAfter, dayDayAfter, dayAfter, tomorrow1, dayDayDayAfter1, dayDayAfter1, dayAfter1, pressure1, desc1,
             temperature1, day1, city1;
 
-    public Controller() { this.citySet = "Cracow".toUpperCase(); }
+    public Controller() { this.citySet = "Cracow".toUpperCase();}
 
     @FXML
     private void handleButtonClicks(javafx.event.ActionEvent ae) {

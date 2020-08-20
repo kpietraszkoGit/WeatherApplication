@@ -30,16 +30,6 @@ public class WeatherManagerTest {
     }
 
     @Test
-    public void codeLengthControl() {
-        //given
-        //when
-        String KEY_API = "d3c9f8ba9b96d5b61d961d54d9b5d0ea";
-        //then
-        assertThat(KEY_API, notNullValue());
-        assertThat(KEY_API, is(not(emptyString())));
-    }
-
-    @Test
     public void shouldReadAll() {
         //given
         StringBuilder sb = new StringBuilder();
@@ -50,6 +40,14 @@ public class WeatherManagerTest {
         assertThat(sb, is(notNullValue()));
     }
 
+    public JSONObject readJsonFromUrl(String url) throws IOException, JSONException {
+        try (InputStream is = new URL(url).openStream()){
+            BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
+            String jsonText = readAll(rd);
+            return new JSONObject(jsonText);
+        }
+    }
+
     private String readAll(Reader rd) throws IOException {
         StringBuilder sb = new StringBuilder();
         int cp;
@@ -57,14 +55,6 @@ public class WeatherManagerTest {
             sb.append((char) cp);
         }
         return sb.toString();
-    }
-
-    public JSONObject readJsonFromUrl(String url) throws IOException, JSONException {
-        try (InputStream is = new URL(url).openStream()){
-            BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
-            String jsonText = readAll(rd);
-            return new JSONObject(jsonText);
-        }
     }
     
     @Test
@@ -75,17 +65,6 @@ public class WeatherManagerTest {
         JSONObject jsonObject = readJsonFromUrl(url);
         //then
         assertNotNull(jsonObject, "Null");
-    }
-
-    @Test
-    public void checkJsonFile() throws IOException, JSONException {
-        //given
-        //when
-        JSONObject json = readJsonFromUrl("http://api.openweathermap.org/data/2.5/weather?q=" + "Cracow" + "&appid" +
-                "=" + "d3c9f8ba9b96d5b61d961d54d9b5d0ea" + "&lang=eng&units=metric");
-        //then
-        assertNotNull(json, "Null json file");
-
     }
 
     @ParameterizedTest

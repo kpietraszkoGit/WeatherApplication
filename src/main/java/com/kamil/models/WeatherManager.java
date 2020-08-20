@@ -26,8 +26,8 @@ public class WeatherManager {
     private String humidity;
     private static final String KEY_API = "d3c9f8ba9b96d5b61d961d54d9b5d0ea";
 
-    public WeatherManager(String city) {
-        this.city = city;
+     public WeatherManager(String city) {
+       this.city = city;
     }
 
     private String readAll(Reader rd) throws IOException {

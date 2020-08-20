@@ -4,8 +4,6 @@ import com.kamil.models.WeatherManager;
 import com.kamil.models.WeatherUtility;
 import org.json.JSONException;
 import org.junit.jupiter.api.Test;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -23,22 +21,10 @@ public class ControllerTest {
     }
 
     @Test
-    public void controlGettingTodayDay() {
+    public void dayAfterAndDayDayAfterShouldBeNull() {
         //given
-        WeatherUtility weatherUtility = new WeatherUtility("Cracow");
         //when
-        String todayDay = weatherUtility.getTodayDay();
-        //then
-        assertThat(weatherUtility.getTodayDay(), equalTo(todayDay));
-    }
-
-    @Test
-    public void controlFields() {
-        //given
         WeatherUtility weatherUtility = new WeatherUtility("Cracow");
-        //when
-        weatherUtility.getDayAfter();
-        weatherUtility.getDayDayDayAfter();
         //then
         assertNull(weatherUtility.getDayAfter(), "Not null");
         assertNull(weatherUtility.getDayDayDayAfter(), "Not null");

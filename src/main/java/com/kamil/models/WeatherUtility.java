@@ -33,13 +33,17 @@ public class WeatherUtility {
     private String iconB;
     private String iconC;
     private String iconD;
+    private static final String DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss";
+    private static final String TIME_FORMAT = "HH:mm:ss";
+    private static final String TIME_WEATHER = "06:00:00";
+    private static final Integer NEXT_DAY = 8;
     public String temp;
     public String sym;
     public String descript;
     public String press;
     public Date clock;
-    public List<String> forecast = new ArrayList();
-    public List<Forecast> fore = new ArrayList();
+    public List<String> forecast = new ArrayList<>();
+    public List<Forecast> fore = new ArrayList<>();
 
     public WeatherUtility(String city) {
         this.city = city;
@@ -53,7 +57,7 @@ public class WeatherUtility {
         }
     }
 
-    public void fetchDataFromApi() {
+    private void fetchDataFromApi() {
         XMLInputFactory inputFactory =
                 XMLInputFactory.newInstance();
         try {
@@ -76,11 +80,6 @@ public class WeatherUtility {
 
                     if (el.equals("lon")) {
                         longitude = reader.getElementText();
-                    }
-
-                    if (el.equals("formatted_address")) {
-                        String[] arr = reader.getElementText().split(",");
-                        String state = arr[1].substring(1, 3);
                     }
                 }
                 reader.next();
@@ -134,7 +133,7 @@ public class WeatherUtility {
                     }
 
                     if (el.equals("time")) {
-                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+                        SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
                         String time = reader.getAttributeValue(1);
                         try {
                             date = sdf.parse(time);
@@ -165,12 +164,12 @@ public class WeatherUtility {
             forecast.add("0");
             fore.add(new Forecast(temp, sym, descript, clock, press));
         } else {
-            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+            SimpleDateFormat sdf = new SimpleDateFormat(TIME_FORMAT);
             List<Integer> array = new ArrayList();
 
             for (int i = 0; i < fore.size(); i++) {
                 String now = sdf.format(fore.get(i).time);
-                if (now.equals("09:00:00")) {
+                if (now.equals(TIME_WEATHER)) {
                     array.add(i);
                 }
             }
@@ -180,10 +179,10 @@ public class WeatherUtility {
             int fetchForecastDataFromArray2 = array.get(2);
             int fetchForecastDataFromArray3 = array.get(3);
 
-            List<Double> day1 = new ArrayList();
-            List<Double> day2 = new ArrayList();
-            List<Double> day3 = new ArrayList();
-            List<Double> day4 = new ArrayList();
+            List<Double> day1 = new ArrayList<>();
+            List<Double> day2 = new ArrayList<>();
+            List<Double> day3 = new ArrayList<>();
+            List<Double> day4 = new ArrayList<>();
 
             for (int i = fetchForecastDataFromArray0; i < fetchForecastDataFromArray1; i++) {
                 Double temp = Double.parseDouble(fore.get(i).temperature);
@@ -199,7 +198,7 @@ public class WeatherUtility {
                 Double temp = Double.parseDouble(fore.get(i).temperature);
                 day3.add(temp);
             }
-            for (int i = fetchForecastDataFromArray3; i < (fetchForecastDataFromArray3 + 8); i++) {
+            for (int i = fetchForecastDataFromArray3; i < (fetchForecastDataFromArray3 + NEXT_DAY); i++) {
                 Double temp = Double.parseDouble(fore.get(i).temperature);
                 day4.add(temp);
             }
@@ -225,13 +224,21 @@ public class WeatherUtility {
             this.descriptionToday = fore.get(0).description;
 
             this.tomorrow =
-                    " " + fore.get(fetchForecastDataFromArray0).time.toString().substring(0, 4) + "     " + tempTom + "ºC      " + fore.get(fetchForecastDataFromArray0).pressure + " hPa" + "     " + fore.get(fetchForecastDataFromArray0).description;
+                    " " + fore.get(fetchForecastDataFromArray0).time.toString().substring(0, 4) +
+                            "     " + tempTom + "ºC      " + fore.get(fetchForecastDataFromArray0).pressure + " hPa" +
+                            "     " + fore.get(fetchForecastDataFromArray0).description;
             this.dayAfter =
-                    " " + fore.get(fetchForecastDataFromArray1).time.toString().substring(0, 4) + "     " + tempDay + "ºC      " + fore.get(fetchForecastDataFromArray1).pressure + " hPa" + "     " + fore.get(fetchForecastDataFromArray1).description;
+                    " " + fore.get(fetchForecastDataFromArray1).time.toString().substring(0, 4) +
+                            "     " + tempDay + "ºC      " + fore.get(fetchForecastDataFromArray1).pressure + " hPa" +
+                            "     " + fore.get(fetchForecastDataFromArray1).description;
             this.dayDayAfter =
-                    " " + fore.get(fetchForecastDataFromArray2).time.toString().substring(0, 4) + "     " + tempDayDay + "ºC      " + fore.get(fetchForecastDataFromArray2).pressure + " hPa" + "     " + fore.get(fetchForecastDataFromArray2).description;
+                    " " + fore.get(fetchForecastDataFromArray2).time.toString().substring(0, 4) +
+                            "     " + tempDayDay + "ºC      " + fore.get(fetchForecastDataFromArray2).pressure + " hPa" +
+                            "     " + fore.get(fetchForecastDataFromArray2).description;
             this.dayDayDayAfter =
-                    " " + fore.get(fetchForecastDataFromArray3).time.toString().substring(0, 4) + "     " + tempDayDayDay + "ºC      " + fore.get(fetchForecastDataFromArray3).pressure + " hPa" + "     " + fore.get(fetchForecastDataFromArray3).description;
+                    " " + fore.get(fetchForecastDataFromArray3).time.toString().substring(0, 4) +
+                            "     " + tempDayDayDay + "ºC      " + fore.get(fetchForecastDataFromArray3).pressure + " hPa" +
+                            "     " + fore.get(fetchForecastDataFromArray3).description;
 
             this.icon0 = fore.get(0).symbol;
             this.iconA = fore.get(fetchForecastDataFromArray0).symbol;
